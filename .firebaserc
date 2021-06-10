@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "mi-app-ccf9c"
+  },
+  "targets": {
+    "mi-app-ccf9c": {
+      "hosting": {
+        "adminTienda": [
+          "mi-app-ccf9c"
+        ]
+      }
+    }
   }
 }
