@@ -1,0 +1,7 @@
+<form [formGroup]="userForm">
+  <input [formControlName]="keysForm.email" type="text" placeholder="Usuario">
+  <input [formControlName]="keysForm.password" type="text" placeholder="Contraseña">
+  <button (click)="iniciarSesion()">Iniciar sesión</button>
+
+  <button routerLink="/registro">Crear cuenta</button>
+</form>

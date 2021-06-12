@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "contactapp-f8cf8": {
+      "hosting": {
+        "tuAdmin": [
+          "contactapp-f8cf8"
+        ]
+      }
+    }
+  }
+}

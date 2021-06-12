@@ -1,0 +1,59 @@
+[debug] [2021-06-12T18:32:25.698Z] ----------------------------------------------------------------------
+[debug] [2021-06-12T18:32:25.702Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Moli\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2021-06-12T18:32:25.702Z] CLI Version:   9.12.1
+[debug] [2021-06-12T18:32:25.703Z] Platform:      win32
+[debug] [2021-06-12T18:32:25.703Z] Node Version:  v14.15.4
+[debug] [2021-06-12T18:32:25.704Z] Time:          Sat Jun 12 2021 14:32:25 GMT-0400 (hora de Venezuela)
+[debug] [2021-06-12T18:32:25.705Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-06-12T18:32:25.716Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-06-12T18:32:25.717Z] > authorizing via signed-in user (msveliz16@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Moli\tuAdmin
+
+Before we get started, keep in mind:
+
+  * You are initializing in an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2021-06-12T18:32:33.101Z] > refreshing access token with scopes: []
+[debug] [2021-06-12T18:32:33.102Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-06-12T18:32:33.465Z] <<< HTTP RESPONSE 200 {"cache-control":"no-cache, no-store, max-age=0, must-revalidate","pragma":"no-cache","date":"Sat, 12 Jun 2021 18:30:37 GMT","expires":"Mon, 01 Jan 1990 00:00:00 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-06-12T18:32:33.527Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/mi-app-ccf9c [none]
+[debug] [2021-06-12T18:32:33.968Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/mi-app-ccf9c 200
+[debug] [2021-06-12T18:32:33.968Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/mi-app-ccf9c {"projectId":"mi-app-ccf9c","projectNumber":"9881619609","displayName":"bodeguita","name":"projects/mi-app-ccf9c","resources":{"hostingSite":"mi-app-ccf9c","realtimeDatabaseInstance":"mi-app-ccf9c","storageBucket":"mi-app-ccf9c.appspot.com","locationId":"us-central"},"state":"ACTIVE"}
+[info] i  Using project mi-app-ccf9c (bodeguita) 
+[info] 
+=== Database Setup
+[info] i  database: ensuring required API firebasedatabase.googleapis.com is enabled... 
+[debug] [2021-06-12T18:32:33.996Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-06-12T18:32:33.996Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2021-06-12T18:32:34.322Z] <<< HTTP RESPONSE 200 {"date":"Sat, 12 Jun 2021 18:30:38 GMT","pragma":"no-cache","expires":"Mon, 01 Jan 1990 00:00:00 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-06-12T18:32:34.384Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/mi-app-ccf9c/services/firebasedatabase.googleapis.com  
+ 
+[debug] [2021-06-12T18:32:34.953Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 12 Jun 2021 18:30:39 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] +  database: required API firebasedatabase.googleapis.com is enabled 
+[info] 
+[debug] [2021-06-12T18:32:34.956Z] >>> HTTP REQUEST GET https://firebasedatabase.googleapis.com/v1beta/projects/mi-app-ccf9c/locations/-/instances/mi-app-ccf9c  
+ 
+[debug] [2021-06-12T18:32:35.493Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 12 Jun 2021 18:30:39 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] Firebase Realtime Database Security Rules allow you to define how your data should be
+[info] structured and when your data can be read from and written to.
+[info] 
