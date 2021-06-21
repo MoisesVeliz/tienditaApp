@@ -1,1 +1,25 @@
-<p>pages works!</p>
+<div class="m-container">
+  <ng-sidebar-container>
+
+    <ng-sidebar
+    [opened]="true" [mode]="'push'" [keyClose]="false"
+    [position]="'left'" [dock]="show_sidebar" [dockedSize]="'54px'"
+    [autoCollapseHeight]="_autoCollapseHeight" [autoCollapseWidth]="500"
+    [closeOnClickOutside]="_closeOnClickOutside" [closeOnClickBackdrop]="_closeOnClickBackdrop"
+    [showBackdrop]="_showBackdrop" [animate]="true" [trapFocus]="_trapFocus"
+    [autoFocus]="_autoFocus" [sidebarClass]="'demo-sidebar'" [ariaLabel]="'Menu'">
+      <div class="container-sidebar">
+        <app-sidebar></app-sidebar>
+      </div>
+    </ng-sidebar>
+
+    <div ng-sidebar-content class="container-content">
+      <div class="p-shadow-3 container-toolbar" >
+      </div>
+      <div class="container-page">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+
+  </ng-sidebar-container>
+</div>

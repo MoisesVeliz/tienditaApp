@@ -1,0 +1,25 @@
+.container-menu {
+  width: 200px;
+  height: 100%;
+  background: #212027;
+}
+ul li {
+  color: #fff;
+  width: 100%;
+}
+
+.container-menu button {
+  width: 100%;
+  border-radius: 0;
+}
+
+.header-sidebar{
+  height: 56px;
+  text-align: center;
+  color: #fff;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  flex-direction: column;
+}

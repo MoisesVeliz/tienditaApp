@@ -1,0 +1,15 @@
+.m-container{
+  max-height:100vh; height: 100vh; overflow: hidden;
+}
+.container-sidebar{
+  background-color: transparent; height: 100%;
+}
+.container-content{
+  width: 100%;height: 100%; overflow: hidden;position: relative
+}
+.container-toolbar{
+  width: 100%; height: 56px;
+}
+.container-page{
+  width: 100%;height: 100%; overflow: hidden; position: relative; top:0;
+}

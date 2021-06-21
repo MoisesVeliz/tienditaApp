@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 import firebase from 'firebase/app';
 import { User } from '../model/user.model';
 
@@ -8,7 +9,7 @@ import { User } from '../model/user.model';
 })
 export class AuthService {
   fb;
-  constructor(public auth: AngularFireAuth) {
+  constructor(public auth: AngularFireAuth, public router: Router) {
 
     this.fb = firebase;
   }
@@ -31,6 +32,7 @@ export class AuthService {
       .then((userCredential) => {
         // Signed in
         const userData = userCredential.user;
+        this.router.navigateByUrl('/');
         console.log(userData);
         // ...
       })

@@ -1,7 +1,23 @@
-<form [formGroup]="userForm">
-  <input [formControlName]="keysForm.email" type="text" placeholder="Usuario">
-  <input [formControlName]="keysForm.password" type="text" placeholder="Contraseña">
-  <button (click)="iniciarSesion()">Iniciar sesión</button>
-
-  <button routerLink="/registro">Crear cuenta</button>
+<form [formGroup]="userForm" class="p-d-flex p-flex-column m-container p-jc-center">
+  <div class="p-grid">
+      <div class="p-col-3 p-m-auto">
+        <div class="p-fluid">
+          <h2 class="p-text-center p-mb-5">Iniciar sesión</h2>
+          <div class="p-field">
+            <label for="">Usuario</label>
+            <input pInputText [formControlName]="keysForm.email" type="text" placeholder="Usuario">
+          </div>
+          <div class="p-field">
+            <label for="">Contraseña</label>
+            <input pInputText [formControlName]="keysForm.password" type="password" placeholder="Contraseña">
+          </div>
+          <div class="p-field">
+            <button pButton class="p-button-text" (click)="iniciarSesion()" label="Iniciar sesión"></button>
+          </div>
+          <div class="p-field">
+            <button pButton class="p-button-success" routerLink="/registro" label="Crear cuenta"></button>
+          </div>
+        </div>
+    </div>
+  </div>
 </form>

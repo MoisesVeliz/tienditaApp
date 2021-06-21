@@ -10,7 +10,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class RegistroComponent implements OnInit {
 
-  userForm: FormGroup;
+  userForm: FormGroup = this.fb.group({});
   keysForm: User = {
     email: 'email',
     password: 'password'
