@@ -20,26 +20,26 @@ export class ProductService {
   // }
 
   // // ******************Start*************************
-  // async getProducts(): Promise<Product[]> {
-  //   const res = await this.http.get<any>('assets/products.json').toPromise();
-  //   const data = res.data;
-  //   return data;
-  // }
-  // // ******************End*************************
-  getProducts(): Observable<any> {
-    const dataCollection: any = this.firestore.collection('products');
-    return dataCollection.snapshotChanges().pipe(
-      map((actions: any) => actions.map((a: any) => {
-        const data = { payload: a.payload.doc.data() };
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      }))
-    );
-
+  async getProducts(): Promise<Product[]> {
+    const res = await this.http.get<any>('assets/products.json').toPromise();
+    const data = res.data;
+    return data;
   }
+  // // ******************End*************************
+  // getProducts(): Observable<any> {
+  //   const dataCollection: any = this.firestore.collection('products');
+  //   return dataCollection.snapshotChanges().pipe(
+  //     map((actions: any) => actions.map((a: any) => {
+  //       const data = { payload: a.payload.doc.data() };
+  //       const id = a.payload.doc.id;
+  //       return { id, ...data };
+  //     }))
+  //   );
+
+  // }
 
   addProduct(product: Product): Promise<any> {
-    return this.firestore.collection('products').doc("rstrey654456465").set({});
+    return this.firestore.collection('productList').doc("123").set(product);
   }
   // getProductsWithOrdersSmall() {
   //   return this.http.get<any>('assets/products-orders-small.json')

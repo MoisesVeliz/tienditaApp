@@ -24,8 +24,8 @@ export class RegistroComponent implements OnInit {
 
   buildForm(): void {
     this.userForm = this.fb.group({
-      [this.keysForm.email]: [''],
-      [this.keysForm.password]: ['']
+      [this.keysForm.email]: ['msveliz16@gmail.com'],
+      [this.keysForm.password]: ['123456789']
     });
   }
 

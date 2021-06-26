@@ -11,9 +11,10 @@ import { AuthService } from '../services/auth.service';
 export class LoginComponent implements OnInit {
 
   userForm: FormGroup = this.fb.group({});
-  keysForm: User = {
-    email: 'email',
-    password: 'password'
+  keysForm = {
+    EMAIL: 'email',
+    PASSWORD: 'password',
+    RECORDARME: 'recordarme'
   };
 
   constructor(private auth: AuthService, private fb: FormBuilder) { }
@@ -24,8 +25,9 @@ export class LoginComponent implements OnInit {
 
   buildForm(): void {
     this.userForm = this.fb.group({
-      [this.keysForm.email]: ['msveliz16@gmail.com'],
-      [this.keysForm.password]: ['123456789']
+      [this.keysForm.EMAIL]: ['msveliz16@gmail.com'],
+      [this.keysForm.PASSWORD]: ['123456789'],
+      [this.keysForm.RECORDARME]: false
     });
   }
 

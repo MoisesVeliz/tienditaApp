@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
       { label: 'OUTOFSTOCK', value: 'outofstock' }
     ];
     this.addProduct();
-    this.getProduct();
+    // this.getProduct();
   }
 
   updateTasaCambio(): void {
@@ -63,10 +63,13 @@ export class HomeComponent implements OnInit {
       precioUnidadBolivar: 0,
       precioUnidadDolar: 0,
       tasaCambio: this.tasaCambio,
-      selectedCurrency: null
+      selectedCurrency: null,
     };
     // this.inventario.push(newProducto);
-    this.productService.addProduct(newProducto)
+    this.productService
+      .addProduct(newProducto)
+      .then(res => console.log(res))
+      .catch(error => console.error(error));
   }
 
   // deleteProduct(idx: number): void {
@@ -94,10 +97,7 @@ export class HomeComponent implements OnInit {
 
 
   getProduct(): void {
-    this.productService.getProducts().subscribe((res) => {
-      console.log(res);
-
-    });
+    this.productService.getProducts().then((res: any) => this.products = res)
   }
 
   openNew() {
