@@ -1,45 +1,70 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { Product } from '../shared/models/product';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  constructor(private http: HttpClient, private firestore: AngularFirestore) { }
+  dbUrl: string = environment.firebaseConfig.databaseURL;
 
-  // getProductsSmall() {
-  //   return this.http.get<any>('assets/products-small.json')
-  //     .toPromise()
-  //     .then((res: { data: Product[]; }) => <Product[]>res.data)
-  //     .then((data: any) => { return data; });
-  // }
+  constructor(
+    private http: HttpClient,
+    private firestore: AngularFirestore,
+    private lStorage: LocalStorageService
+  ) { }
 
   // // ******************Start*************************
-  async getProducts(): Promise<Product[]> {
-    const res = await this.http.get<any>('assets/products.json').toPromise();
-    const data = res.data;
-    return data;
+
+
+  getMonetaryRate(): Observable<any> {
+    // api/monetaryRate/[idUser]
+    // return this.http.get<any[]>(`${this.dbUrl}/monetaryRate/${this.lStorage.getUser().userId}.json?auth=${this.lStorage.getUser().token}`);
+    return this.http.get<any[]>(`${this.dbUrl}/monetaryRate/${this.lStorage.getUser().userId}.json`);
+  }
+
+  updateMonetaryRate(rate: number): Observable<{ rate: number }> {
+    // api/monetaryRate/[idUser]
+    return this.http.put<{ rate: number }>(`${this.dbUrl}/monetaryRate/${this.lStorage.getUser().userId}.json`, { rate: rate });
   }
   // // ******************End*************************
-  // getProducts(): Observable<any> {
-  //   const dataCollection: any = this.firestore.collection('products');
-  //   return dataCollection.snapshotChanges().pipe(
-  //     map((actions: any) => actions.map((a: any) => {
-  //       const data = { payload: a.payload.doc.data() };
-  //       const id = a.payload.doc.id;
-  //       return { id, ...data };
-  //     }))
-  //   );
+  getProducts(): Observable<Product[]> {
+    // api/productList/[idUser]
+    // return this.http.get<any[]>(`${this.dbUrl}/productList/${this.lStorage.getUser().userId}.json?auth=${this.lStorage.getUser().token}`).pipe(
+    return this.http.get<any[]>(`${this.dbUrl}/productList/${this.lStorage.getUser().userId}.json`).pipe(
+      map(x => {
+        if (x) {
+          // return Object.values(x);
+          const keys: string[] = Object.keys(x);
+          const values: Product[] = Object.values(x);
+          if (keys.length === values.length) {
+            values.forEach((e: Product, idx: number) => e.uriId = keys[idx]);
+            return values;
+          } else {
+            console.log('Error al armar el objeto lista de productos');
+            return [];
+          }
+        } else {
+          return [];
+        }
+      })
+    );
+  }
 
-  // }
+  addProduct(product: Product): Observable<any> {
+    // api/productList/[idUser]
+    return this.http.post(`${this.dbUrl}/productList/${this.lStorage.getUser().userId}.json`, product);
+  }
 
-  addProduct(product: Product): Promise<any> {
-    return this.firestore.collection('productList').doc("123").set(product);
+  deleteProduct(product: Product): Observable<any> {
+    return this.http.delete(`${this.dbUrl}/productList/${this.lStorage.getUser().userId}/${product.uriId}.json`);
   }
   // getProductsWithOrdersSmall() {
   //   return this.http.get<any>('assets/products-orders-small.json')

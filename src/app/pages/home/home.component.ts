@@ -12,7 +12,8 @@ import { MenuItem } from 'primeng/api';
   providers: [MessageService, ConfirmationService]
 })
 export class HomeComponent implements OnInit {
-  tasaCambio = 3083000;
+
+  tasaCambio = 0;
   currencySymbol: CurrencySymbol = {
     BS: 'Bs.S',
     USD: '$'
@@ -27,35 +28,57 @@ export class HomeComponent implements OnInit {
   products2: Product[] = [];
   clonedProducts: { [s: string]: Product; } = {};
 
-  constructor(private messageService: MessageService, private confirmationService: ConfirmationService, private productService: ProductService) { }
+  showConfirmPopUp = false;
+  productSelected: Product | null = null;
+
+  constructor(
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService,
+    private productService: ProductService
+  ) { }
 
   ngOnInit(): void {
+    this.getMonetaryRate();
+    this.getProducts();
     // this.testSetAmount();
     // this.testUpdateTasa(2900000);
     // this.testCrud();
 
-
-
-    this.statuses = [
-      { label: 'INSTOCK', value: 'instock' },
-      { label: 'LOWSTOCK', value: 'lowstock' },
-      { label: 'OUTOFSTOCK', value: 'outofstock' }
-    ];
-    this.addProduct();
     // this.getProduct();
+  }
+
+  // ?=================== Start monetary rate ===================
+  getMonetaryRate(): void {
+    this.productService.getMonetaryRate().subscribe(res => {
+      if (res) {
+        console.log(res);
+        this.tasaCambio = res.rate;
+      } else {
+        console.log('sin registro');
+      }
+    },
+      error => this.messageService.add({ severity: 'error', summary: 'Error de servicio', detail: 'Tasa del dia no obtenida', life: 3000 })
+    );
   }
 
   updateTasaCambio(): void {
     if (this.tasaCambio <= 0) {
       console.log('Alerta! tasa de cambio esta en 0, esto borrará los montos en bolivares');
     }
-    this.products.forEach((product) => {
-      const precioDolar = product.precioUnidadDolar ? product.precioUnidadDolar : 0;
-      product.tasaCambio = this.tasaCambio;
-      product.precioUnidadBolivar = Number((precioDolar * product.tasaCambio).toFixed(2));
+    this.productService.updateMonetaryRate(this.tasaCambio).subscribe(res => {
+      console.log(res);
+      this.products.forEach((product) => {
+        const precioDolar = product.precioUnidadDolar ? product.precioUnidadDolar : 0;
+        product.tasaCambio = this.tasaCambio;
+        product.precioUnidadBolivar = Number((precioDolar * product.tasaCambio).toFixed(2));
+      });
+    }, error => {
+      this.messageService.add({ severity: 'error', summary: 'Error de servicio', detail: 'Tasa no actualizada', life: 3000 });
     });
   }
+  // ?=================== End monetary rate ===================
 
+  // ?=================== Start CRUD product ===================
   addProduct(): void {
     const newProducto: Product = {
       id: '0005',
@@ -65,13 +88,48 @@ export class HomeComponent implements OnInit {
       tasaCambio: this.tasaCambio,
       selectedCurrency: null,
     };
-    // this.inventario.push(newProducto);
-    this.productService
-      .addProduct(newProducto)
-      .then(res => console.log(res))
-      .catch(error => console.error(error));
+
+    this.productService.addProduct(newProducto).subscribe((res) => {
+      this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Producto Agregado', life: 3000 });
+      this.products.push(newProducto);
+    }, error => {
+      this.messageService.add({ severity: 'error', summary: 'Error de servicio', detail: 'Producto no creado', life: 3000 });
+    });
   }
 
+  getProducts(): void {
+    this.productService.getProducts()
+      .subscribe(
+        res => this.products = res,
+        error => this.messageService.add({ severity: 'error', summary: 'Error de servicio', detail: 'Productos no obtenidos', life: 3000 })
+      );
+  }
+
+  deleteProduct() {
+    console.log(this.productSelected);
+
+    if (this.productSelected) {
+      this.productService.deleteProduct(this.productSelected).subscribe(res => {
+        console.log(res);
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Producto eliminado', life: 3000 });
+        this.showConfirmPopUp = !this.showConfirmPopUp;
+        this.productSelected = null;
+      }, error => {
+        this.messageService.add({ severity: 'error', summary: 'Error de servicio', detail: 'Producto no eliminado', life: 3000 });
+        this.showConfirmPopUp = !this.showConfirmPopUp;
+      });
+    } else {
+      this.messageService.add({ severity: 'error', summary: 'Error cliente', detail: 'Producto no eliminado', life: 3000 });
+      this.showConfirmPopUp = !this.showConfirmPopUp;
+    }
+  }
+
+  // ?=================== End CRUD product ===================
+
+  confirmPopUp(product: Product) {
+    this.productSelected = product;
+    this.showConfirmPopUp = !this.showConfirmPopUp;
+  }
   // deleteProduct(idx: number): void {
   //   this.inventario.splice(idx, 1);
   // }
@@ -93,11 +151,6 @@ export class HomeComponent implements OnInit {
       // Calcular monto en bolivares
       this.products[idx].precioUnidadBolivar = Number((amount * tasa).toFixed(2));
     }
-  }
-
-
-  getProduct(): void {
-    this.productService.getProducts().then((res: any) => this.products = res)
   }
 
   openNew() {
@@ -124,18 +177,6 @@ export class HomeComponent implements OnInit {
     this.productDialog = true;
   }
 
-  deleteProduct(product: Product) {
-    this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + product.name + '?',
-      header: 'Confirm',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.products = this.products.filter(val => val.id !== product.id);
-        this.product = {};
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-      }
-    });
-  }
 
   hideDialog() {
     this.productDialog = false;

@@ -6,8 +6,6 @@
       [showCurrentPageReport]="true" editMode="row">
       <ng-template pTemplate="caption">
         <div class="p-d-flex p-ai-center p-jc-between">
-          <!-- <h5 class="p-m-0">Manage Products</h5> -->
-
           <div class="p-d-flex">
             <div class="p-d-flex p-jc-center p-ai-center">
               <h2 class="p-mr-2">Tasa del Día</h2>
@@ -31,7 +29,8 @@
           </th>
           <th pSortableColumn="name">Nombre<p-sortIcon field="name"></p-sortIcon>
           </th>
-          <th pSortableColumn="precioUnidadBolivar">Precio venta Bs<p-sortIcon field="precioUnidadBolivar"></p-sortIcon>
+          <th pSortableColumn="precioUnidadBolivar">Precio venta Bs<p-sortIcon field="precioUnidadBolivar">
+            </p-sortIcon>
           </th>
           <th pSortableColumn="precioUnidadDolar">Precio venta $<p-sortIcon field="precioUnidadDolar"></p-sortIcon>
           </th>
@@ -94,6 +93,8 @@
               (click)="onRowEditSave(product)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
             <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
               (click)="onRowEditCancel(product, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+            <button pButton pRipple type="button" pCancelEditableRow icon="pi pi-trash" (click)="confirmPopUp(product)"
+              class="p-button-rounded p-button-text p-button-danger"></button>
           </td>
         </tr>
       </ng-template>
@@ -104,7 +105,11 @@
       </ng-template>
     </p-table>
   </div>
+
 </div>
+<button pButton pRipple class="p-button-raised p-button-rounded p-button-lg p-button-help m-btn-float" icon="pi pi-plus"
+  (click)="addProduct()"></button>
+
 
 <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
   styleClass="p-fluid">
@@ -174,4 +179,14 @@
   </ng-template>
 </p-dialog>
 
-<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+<p-dialog header="Eliminar producto" [(visible)]="showConfirmPopUp" [style]="{width: '550px'}" [modal]="true"
+  styleClass="p-fluid">
+  <p>¿Estas seguro de borrar este articulo?</p>
+  <div class="p-d-flex p-flex-row p-jc-end p-ai-center p-mt-5">
+    <button pButton class="p-button-text p-button-raised" label="Cancelar" style="width: unset;"
+      (click)="showConfirmPopUp = false"></button>
+    <button pButton class="p-button-raised p-ml-4" label="Ok" style="width: unset;" (click)="deleteProduct()"></button>
+  </div>
+</p-dialog>
+
+<p-toast></p-toast>

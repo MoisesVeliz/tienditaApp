@@ -42,6 +42,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { ListboxModule } from 'primeng/listbox';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { SidebarModule } from 'ng-sidebar';
@@ -93,7 +94,8 @@ import { SidebarComponent } from './pages/sidebar/sidebar.component';
     PanelMenuModule,
     ListboxModule,
     SidebarModule.forRoot(),
-    CheckboxModule
+    CheckboxModule,
+    ConfirmPopupModule
   ],
   providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]

@@ -3,3 +3,14 @@
   margin: 0 auto 2rem auto;
   display: block;
 }
+.m-btn-float {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  transform: scale(1.3);
+  transition: all 0.2s ease;
+}
+
+.m-btn-float:hover {
+  transform: scale(1.4);
+}

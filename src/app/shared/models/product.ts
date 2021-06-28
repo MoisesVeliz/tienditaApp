@@ -13,4 +13,5 @@ export interface Product {
   precioUnidadDolar?: number;
   tasaCambio?: number;
   selectedCurrency?: string | null;
+  uriId?: string;
 }
