@@ -66,6 +66,20 @@ export class ProductService {
   deleteProduct(product: Product): Observable<any> {
     return this.http.delete(`${this.dbUrl}/productList/${this.lStorage.getUser().userId}/${product.uriId}.json`);
   }
+
+  updateProduct(product: Product): Observable<any> {
+    return this.http.put<{ rate: number }>(`${this.dbUrl}/productList/${this.lStorage.getUser().userId}/${product.uriId}.json`, product);
+  }
+
+  updateProductList(productList: Product[]): Observable<any> {
+    const productListUpdate: { [s: string]: any } = {};
+    productList.forEach((e: Product) => {
+      if (e.uriId) {
+        productListUpdate[e.uriId] = e;
+      }
+    });
+    return this.http.put<{ rate: number }>(`${this.dbUrl}/productList/${this.lStorage.getUser().userId}.json`, productListUpdate);
+  }
   // getProductsWithOrdersSmall() {
   //   return this.http.get<any>('assets/products-orders-small.json')
   //     .toPromise()

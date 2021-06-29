@@ -20,16 +20,24 @@ export class HomeComponent implements OnInit {
   }
   productDialog: boolean = false;
   products: Product[] = [];
-  product: Product = {};
+  product: Product = {
+    id: '',
+    name: '',
+    precioUnidadBolivar: 0,
+    precioUnidadDolar: 0,
+    tasaCambio: this.tasaCambio,
+    selectedCurrency: null,
+  };
   selectedProducts: Product[] = [];
   submitted: boolean = false;
   statuses: any[] = [];
   editing: boolean = false
-  products2: Product[] = [];
   clonedProducts: { [s: string]: Product; } = {};
 
   showConfirmPopUp = false;
   productSelected: Product | null = null;
+  newProduct: Product | null = null;
+  productUlrimate: Product | null = null;
 
   constructor(
     private messageService: MessageService,
@@ -72,6 +80,13 @@ export class HomeComponent implements OnInit {
         product.tasaCambio = this.tasaCambio;
         product.precioUnidadBolivar = Number((precioDolar * product.tasaCambio).toFixed(2));
       });
+
+      this.productService.updateProductList(this.products).subscribe(res => {
+        this.messageService.add({ severity: 'success', summary: 'Excito!', detail: 'Lista de productos actualizada', life: 3000 });
+      }, error => {
+        this.messageService.add({ severity: 'error', summary: 'Error de servicio', detail: 'Lista de productos no actualizada', life: 3000 });
+      });
+      this.messageService.add({ severity: 'success', summary: 'Excito!', detail: 'Tasa actualizada', life: 3000 });
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error de servicio', detail: 'Tasa no actualizada', life: 3000 });
     });
@@ -89,9 +104,12 @@ export class HomeComponent implements OnInit {
       selectedCurrency: null,
     };
 
-    this.productService.addProduct(newProducto).subscribe((res) => {
-      this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Producto Agregado', life: 3000 });
+    this.productService.addProduct(newProducto).subscribe((res: { name: string }) => {
+      newProducto.uriId = res.name;
       this.products.push(newProducto);
+      this.productUlrimate = newProducto;
+      setTimeout(() => this.productUlrimate = null, 800);
+      this.messageService.add({ severity: 'success', summary: 'Excito!', detail: 'Producto Agregado', life: 3000 });
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error de servicio', detail: 'Producto no creado', life: 3000 });
     });
@@ -105,14 +123,44 @@ export class HomeComponent implements OnInit {
       );
   }
 
+  saveProduct() {
+    this.submitted = true;
+
+    if (this.product.name?.trim()) {
+      if (this.product.id) {
+        this.products[this.findIndexById(this.product.id)] = this.product;
+        this.messageService.add({ severity: 'success', summary: 'Excito!', detail: 'Product Updated', life: 3000 });
+      }
+      else {
+        this.product.id = this.createId();
+        this.product.tasaCambio = this.tasaCambio;
+        this.productService.addProduct(this.product).subscribe((res: { name: string }) => {
+          this.product.uriId = res.name;
+          this.products.push(this.product);
+          this.productUlrimate = this.product;
+          setTimeout(() => this.productUlrimate = null, 800);
+          this.product = {};
+          this.messageService.add({ severity: 'success', summary: 'Excito!', detail: 'Producto Agregado', life: 3000 });
+        }, error => {
+          this.messageService.add({ severity: 'error', summary: 'Error de servicio', detail: 'Producto no creado', life: 3000 });
+        });
+      }
+
+      // this.products = [...this.products];
+      this.productDialog = false;
+
+    }
+  }
+
   deleteProduct() {
     console.log(this.productSelected);
-
-    if (this.productSelected) {
+    const haveUri = this.productSelected ? this.productSelected.uriId : null;
+    if (this.productSelected && haveUri) {
       this.productService.deleteProduct(this.productSelected).subscribe(res => {
         console.log(res);
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Producto eliminado', life: 3000 });
+        this.messageService.add({ severity: 'success', summary: 'Excito!', detail: 'Producto eliminado', life: 3000 });
         this.showConfirmPopUp = !this.showConfirmPopUp;
+        this.products.splice(this.products.findIndex(e => e.uriId === this.productSelected?.uriId), 1);
         this.productSelected = null;
       }, error => {
         this.messageService.add({ severity: 'error', summary: 'Error de servicio', detail: 'Producto no eliminado', life: 3000 });
@@ -124,84 +172,113 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  onRowEditSave(product: Product, idx: number) {
+    if (product.precioUnidadBolivar && product.precioUnidadDolar && product.id) {
+      this.productService.updateProduct(product).subscribe(res => {
+        console.log(res);
+        if (product.precioUnidadBolivar && product.precioUnidadDolar && product.id) {
+          delete this.clonedProducts[product.id];
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product is updated' });
+        }
+        else {
+          this.messageService.add({ severity: 'error', summary: 'Errord el cliente', detail: 'Producto no actualizado' });
+        }
+      }, error => {
+        this.messageService.add({ severity: 'error', summary: 'Error del servicio', detail: 'Producto no actualizado' });
+        this.onRowEditCancel(product, idx);
+      });
+    }
+  }
+
+
   // ?=================== End CRUD product ===================
+
+
+  onRowEditInit(product: Product) {
+    if (product.id) {
+      this.clonedProducts[product.id] = { ...product };
+    }
+  }
+
+  onRowEditCancel(product: Product, index: number) {
+    if (product.id) {
+      this.products[index] = this.clonedProducts[product.id];
+      delete this.clonedProducts[product.id];
+    }
+  }
 
   confirmPopUp(product: Product) {
     this.productSelected = product;
     this.showConfirmPopUp = !this.showConfirmPopUp;
   }
-  // deleteProduct(idx: number): void {
-  //   this.inventario.splice(idx, 1);
-  // }
 
-  // updateProduct(idx: number): void {
-  //   this.inventario[idx].name = '***Producto editado***';
-  //   this.inventario[idx].precioUnidadBolivar = this.inventario[idx].precioUnidadBolivar;
-  //   this.inventario[idx].precioUnidadDolar = this.inventario[idx].precioUnidadDolar;
-  //   this.inventario[idx].tasaCambio = this.inventario[idx].tasaCambio;
-  //   this.inventario[idx].selectedCurrency = this.inventario[idx].selectedCurrency;
-  // }
-
-  setAmount(amount: number, currencySymbol: string, idx: number): void {
-    const tasa: number = Number(this.products[idx].tasaCambio);
-    if (currencySymbol === this.currencySymbol.BS) {
-      // calcular monto en dolares
-      this.products[idx].precioUnidadDolar = Number((amount / tasa).toFixed(2));
-    } else if (currencySymbol === this.currencySymbol.USD) {
-      // Calcular monto en bolivares
-      this.products[idx].precioUnidadBolivar = Number((amount * tasa).toFixed(2));
-    }
+  openModalProduct(): void {
+    this.productDialog = !this.productDialog;
   }
 
-  openNew() {
-    this.product = {};
-    this.submitted = false;
-    this.productDialog = true;
-  }
 
-  deleteSelectedProducts() {
-    this.confirmationService.confirm({
-      message: 'Are you sure you want to delete the selected products?',
-      header: 'Confirm',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.products = this.products.filter(val => !this.selectedProducts.includes(val));
-        // this.selectedProducts = null;
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
+  setAmount(amount: number | undefined, currencySymbol: string, idx?: number): void {
+    try {
+      if (typeof amount !== 'number') {
+        amount = 0;
       }
-    });
+
+
+      if (idx !== undefined) {
+        const tasa: number = Number(this.products[idx].tasaCambio);
+        if (currencySymbol === this.currencySymbol.BS) {
+          // calcular monto en dolares
+          this.products[idx].precioUnidadDolar = Number((amount / tasa).toFixed(2));
+        } else if (currencySymbol === this.currencySymbol.USD) {
+          // Calcular monto en bolivares
+          this.products[idx].precioUnidadBolivar = Number((amount * tasa).toFixed(2));
+        }
+        return;
+      } else {
+        if (currencySymbol === this.currencySymbol.BS) {
+          // calcular monto en dolares
+          this.product.precioUnidadDolar = Number((amount / this.tasaCambio).toFixed(2));
+        } else if (currencySymbol === this.currencySymbol.USD) {
+          // Calcular monto en bolivares
+          this.product.precioUnidadBolivar = Number((amount * this.tasaCambio).toFixed(2));
+        }
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+
+      this.messageService.add({ severity: 'error', summary: 'Error de cliente', detail: 'No se puede asignar precio', life: 3000 });
+    }
+
   }
+
+  // openNew() {
+  //   this.product = {};
+  //   this.submitted = false;
+  //   this.productDialog = true;
+  // }
+
+  // deleteSelectedProducts() {
+  //   this.confirmationService.confirm({
+  //     message: 'Are you sure you want to delete the selected products?',
+  //     header: 'Confirm',
+  //     icon: 'pi pi-exclamation-triangle',
+  //     accept: () => {
+  //       this.products = this.products.filter(val => !this.selectedProducts.includes(val));
+  //       // this.selectedProducts = null;
+  //       this.messageService.add({ severity: 'success', summary: 'Excito!', detail: 'Products Deleted', life: 3000 });
+  //     }
+  //   });
+  // }
 
   editProduct(product: Product$) {
     this.product = { ...product };
     this.productDialog = true;
   }
 
-
   hideDialog() {
     this.productDialog = false;
     this.submitted = false;
-  }
-
-  saveProduct() {
-    this.submitted = true;
-
-    if (this.product.name?.trim()) {
-      if (this.product.id) {
-        this.products[this.findIndexById(this.product.id)] = this.product;
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
-      }
-      else {
-        this.product.id = this.createId();
-        this.product.image = 'product-placeholder.svg';
-        this.products.push(this.product);
-        this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000 });
-      }
-
-      this.products = [...this.products];
-      this.productDialog = false;
-      this.product = {};
-    }
   }
 
   findIndexById(id: string): number {
@@ -225,24 +302,7 @@ export class HomeComponent implements OnInit {
     return id;
   }
 
-  onRowEditInit(product: Product) {
-    this.clonedProducts[0] = { ...product };
-  }
 
-  onRowEditSave(product: Product) {
-    if (100 > 0) {
-      delete this.clonedProducts[0];
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product is updated' });
-    }
-    else {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Price' });
-    }
-  }
-
-  onRowEditCancel(product: Product, index: number) {
-    this.products2[index] = this.clonedProducts[0];
-    delete this.clonedProducts[0];
-  }
 
   // testUpdateTasa(amount: number): void {
   //   // test 1.

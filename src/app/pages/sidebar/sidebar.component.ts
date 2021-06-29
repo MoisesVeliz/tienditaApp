@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  listItem: {name: string; iconName: string; route: string}[] = [
+  listItem: { name: string; iconName: string; route: string }[] = [
     {
-      name: 'Productos',
+      name: 'Lista de precios',
       iconName: 'pi pi-home',
       route: '/home'
     },
@@ -19,7 +19,7 @@ export class SidebarComponent implements OnInit {
       route: '/dashboard'
     },
     {
-      name: 'config',
+      name: 'Caja',
       iconName: 'pi pi-cog',
       route: '/config'
     },
