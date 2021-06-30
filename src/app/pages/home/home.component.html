@@ -1,6 +1,6 @@
 <div class="p-p-5">
   <div class="card">
-    <p-table #dt [value]="products" [rows]="10" [paginator]="true"
+    <p-table #dt [value]="products" [rows]="7" [paginator]="true"
       [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedProducts"
       [rowHover]="true" dataKey="id" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [showCurrentPageReport]="true" editMode="row">

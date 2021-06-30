@@ -13,7 +13,6 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegistroComponent } from './auth/registro/registro.component';
 import { HomeComponent } from './pages/home/home.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { PagenofoundComponent } from './pages/pagenofound/pagenofound.component';
 import { environment } from 'src/environments/environment';
 import { PagesComponent } from './pages/pages.component';
 
@@ -48,8 +47,11 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { SidebarModule } from 'ng-sidebar';
-import { SidebarComponent } from './pages/sidebar/sidebar.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
+import { InventoryComponent } from './pages/inventory/inventory.component';
+import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
+import { PagenofoundComponent } from './pagenofound/pagenofound.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +63,8 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
     PagesComponent,
     SidebarComponent,
     WelcomeComponent,
+    InventoryComponent,
+    ShoppingCartComponent,
   ],
   imports: [
     BrowserModule,

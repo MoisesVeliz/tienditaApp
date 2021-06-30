@@ -15,13 +15,13 @@ export class SidebarComponent implements OnInit {
     },
     {
       name: 'Inventario',
-      iconName: 'pi pi-check',
-      route: '/dashboard'
+      iconName: 'pi pi-list',
+      route: '/inventory'
     },
     {
       name: 'Caja',
-      iconName: 'pi pi-cog',
-      route: '/config'
+      iconName: 'pi pi-shopping-cart',
+      route: '/shopping-cart'
     },
   ];
   activeItem = 0;
