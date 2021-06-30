@@ -43,11 +43,13 @@ import { PanelMenuModule } from 'primeng/panelmenu';
 import { ListboxModule } from 'primeng/listbox';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { MatStepperModule } from '@angular/material/stepper';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { SidebarModule } from 'ng-sidebar';
 import { SidebarComponent } from './pages/sidebar/sidebar.component';
-
+import { WelcomeComponent } from './pages/welcome/welcome.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +59,8 @@ import { SidebarComponent } from './pages/sidebar/sidebar.component';
     DashboardComponent,
     PagenofoundComponent,
     PagesComponent,
-    SidebarComponent
+    SidebarComponent,
+    WelcomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -95,7 +98,9 @@ import { SidebarComponent } from './pages/sidebar/sidebar.component';
     ListboxModule,
     SidebarModule.forRoot(),
     CheckboxModule,
-    ConfirmPopupModule
+    ConfirmPopupModule,
+    MatStepperModule,
+    SelectButtonModule
   ],
   providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]

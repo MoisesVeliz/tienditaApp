@@ -1,9 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import firebase from 'firebase/app';
+import { Observable } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { User } from 'src/app/shared/models/user.model';
+import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { User as UserAuth } from '../model/user.model';
 
@@ -11,10 +14,17 @@ import { User as UserAuth } from '../model/user.model';
   providedIn: 'root'
 })
 export class AuthService {
-  fb;
-  constructor(public auth: AngularFireAuth, public router: Router, private storage: LocalStorageService) {
 
-    this.fb = firebase;
+  dbUrl: string = environment.firebaseConfig.databaseURL;
+
+  constructor(
+    public auth: AngularFireAuth,
+    public router: Router,
+    private storage: LocalStorageService,
+    private http: HttpClient,
+    private lStorage: LocalStorageService
+  ) {
+
   }
 
   createUser(user: UserAuth): void {
@@ -65,8 +75,20 @@ export class AuthService {
           userId: userData?.uid,
           isNewUser: userCredential.additionalUserInfo?.isNewUser
         };
-        this.storage.setUser(userLogin);
-        this.router.navigateByUrl('/');
+        this.storage.setUser(this.storage.SIN_IN_DATA, userLogin);
+
+        this.getUser().subscribe(res => {
+          console.log(res);
+          if (res) {
+            this.router.navigateByUrl('/');
+          } else {
+            this.router.navigateByUrl('/welcome');
+          }
+        }, error => {
+          console.log(error);
+        });
+
+
         // ...
       })
       .catch((error) => {
@@ -80,6 +102,14 @@ export class AuthService {
         })
         // ..
       });
+  }
+
+  getUser(): Observable<any> {
+    return this.http.get(`${this.dbUrl}/user/${this.lStorage.getUser(this.storage.SIN_IN_DATA).userId}.json`);
+  }
+
+  saveDataUser(dataUser: any): Observable<any> {
+    return this.http.put(`${this.dbUrl}/user/${this.lStorage.getUser(this.storage.SIN_IN_DATA).userId}.json`, dataUser);
   }
 }
 

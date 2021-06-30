@@ -6,6 +6,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PagenofoundComponent } from './pages/pagenofound/pagenofound.component';
 import { PagesComponent } from './pages/pages.component';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
+  { path: 'welcome', component: WelcomeComponent },
   { path: '**', component: PagenofoundComponent }
 ];
 

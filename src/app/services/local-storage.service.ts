@@ -6,16 +6,17 @@ import { User } from '../shared/models/user.model';
 })
 export class LocalStorageService {
 
-  private key = 'appUser_H_416';
+  public SIN_IN_DATA = 'appUser_H_416';
+  public DATA_USER = 'dataUser_J_424';
 
   constructor() { }
 
-  setUser(user: User): void {
-    localStorage.setItem(this.key, JSON.stringify(user));
+  setUser(key: string, user: User): void {
+    localStorage.setItem(key, JSON.stringify(user));
   }
 
-  getUser(): User {
-    const user: any = localStorage.getItem(this.key);
+  getUser(key: string): User {
+    const user: any = localStorage.getItem(key);
     return JSON.parse(user ? user : '{}');
   }
 

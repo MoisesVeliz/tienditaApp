@@ -6,6 +6,10 @@
 ul li {
   color: #fff;
   width: 100%;
+  list-style: none;
+}
+ul {
+  padding: 0;
 }
 
 .container-menu button {
@@ -13,7 +17,7 @@ ul li {
   border-radius: 0;
 }
 
-.header-sidebar{
+.header-sidebar {
   height: 56px;
   text-align: center;
   color: #fff;
@@ -22,4 +26,13 @@ ul li {
   justify-content: center;
   margin-bottom: 1rem;
   flex-direction: column;
+}
+
+.p-button-secondary {
+  background: transparent;
+  border: 1px solid transparent;
+}
+.p-button-warning {
+  background: #ffc107 !important;
+  border: 1px solid #ffc107 !important;
 }

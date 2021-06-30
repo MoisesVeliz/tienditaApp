@@ -1,30 +1,16 @@
 <div class="container-menu p-d-flex p-flex-column p-jc-between">
   <div>
     <div class="p-shadow-7 header-sidebar">
-      <h3>Admin Tienda</h3>
-      <p class="p-text-secondary">Moises veliz</p>
+      <h3 class="mb-0">Admin Tienda</h3>
     </div>
     <ul>
       <li>
         <ng-container *ngFor="let item of listItem; let idx = index">
-          <button
-          class="p-button-text p-button-secondary p-text-left p-px-4"
-          pButton
-          type="button"
-          [label]="item.name"
-          [icon]="item.iconName"
-          [routerLink]="item.route"
-          routerLinkActive="p-button-warning"
-          ></button>
+          <button class="p-button-secondary p-text-left p-px-4" pButton type="button" [label]="item.name"
+            [icon]="item.iconName" [routerLink]="item.route" routerLinkActive="p-button-warning"></button>
         </ng-container>
       </li>
     </ul>
   </div>
-  <button
-    pButton
-    icon="pi pi-power-off"
-    label="Cerrar sesión "
-    class="p-button-secondary"
-    routerLink="/login"
-  ></button>
+  <button pButton icon="pi pi-power-off" label="Cerrar sesión " class="p-button-secondary" routerLink="/login"></button>
 </div>

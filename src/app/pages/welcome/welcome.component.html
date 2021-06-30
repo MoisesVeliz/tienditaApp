@@ -1,0 +1,103 @@
+<div class="container">
+  <div class="row">
+    <div class="col-8 mx-auto">
+
+      <div class="mt-5 card">
+        <mat-horizontal-stepper>
+
+          <mat-step label="Bienvenido">
+            <div class="text-center my-5">
+              <h2 class="mb-4">Bienvenido!</h2>
+              <div class="mx-auto mb-4" style="width: 150px;">
+                <img class="img-fluid" src="assets/img/undraw_Online_party_re_7t6g.svg" alt="">
+              </div>
+
+              <p class="lead">Te damos la bienvenida al sistema de administración de tiendas online, facil, rapido y
+                seguro
+              </p>
+              <p class="text-muted">Siguiente para continuar...</p>
+              <div class="d-flex justify-content-end mt-5">
+                <button pButton matStepperNext class="p-button-text p-button-raised">Siguiente</button>
+              </div>
+            </div>
+          </mat-step>
+
+          <mat-step label="Usuario">
+            <div class="my-5 ">
+              <h2 class="text-center">Datos de usuario</h2>
+              <div class="mx-auto mb-4" style="width: 150px;">
+                <img class="img-fluid" src="assets/img/undraw_subscriptions_re_k7jj.svg" alt="">
+              </div>
+              <form action="">
+                <div class="p-inputgroup">
+                  <span class="p-float-label">
+                    <input id="userName" type="text" pInputText [(ngModel)]="user.userName"
+                      [ngModelOptions]="{standalone: true}">
+                    <label for="userName">Nombre y apellido</label>
+                  </span>
+                </div>
+                <div class="p-inputgroup mt-5 ">
+                  <span class="p-float-label">
+                    <input id="localName" type="text" pInputText [(ngModel)]="user.localName"
+                      [ngModelOptions]="{standalone: true}">
+                    <label for="localName">Nombre del local, tienda, bodega, etc...</label>
+                  </span>
+                </div>
+                <div class="p-inputgroup mt-5 ">
+                  <span class="p-float-label">
+                    <input id="location" type="text" pInputText [(ngModel)]="user.localLocation"
+                      [ngModelOptions]="{standalone: true}">
+                    <label for="location">Ubicación del local</label>
+                  </span>
+                </div>
+              </form>
+              <div class="d-flex justify-content-between mt-5">
+                <button pButton matStepperPrevious class="p-button-text p-button-raised">Atras</button>
+                <button pButton matStepperNext class="p-button-text p-button-raised">Siguiente</button>
+              </div>
+            </div>
+          </mat-step>
+
+          <mat-step label="Productos">
+            <div class="my-5">
+              <h2 class="text-center">Comienza con una lista de precios y productos</h2>
+              <div class="mx-auto mb-4" style="width: 150px;">
+                <img class="img-fluid" src="assets/img/undraw_chore_list_re_2lq8.svg" alt="">
+              </div>
+
+              <div class="d-flex justify-content-evenly my-5">
+
+                <div>
+
+                  <button pButton class="p-button-help mat-button-raised p-button-raised"
+                    [ngClass]="{'p-button-text': user.typeList !== 'default'}" (click)="selectTypeList('default')">
+                    <input type="radio" id="default" [(ngModel)]="user.typeList" value="default" name="typeList">
+                    <span class="radioList">Lista
+                      predeterminada</span>
+                  </button>
+                </div>
+
+                <div>
+
+                  <button pButton class="p-button-info mat-button-raised p-button-raised"
+                    [ngClass]="{'p-button-text': user.typeList !== 'newList'}" (click)="selectTypeList('newList')">
+                    <input type="radio" id="newList" [(ngModel)]="user.typeList" value="newList" name="typeList">
+                    <span class="radioList">Crear una lista nueva</span>
+                  </button>
+                </div>
+
+              </div>
+
+              <div class="d-flex justify-content-between mt-5">
+                <button pButton matStepperPrevious class="p-button-text p-button-raised">Atras</button>
+                <button pButton class="p-button-text p-button-raised" (click)="submit()">Comenzar</button>
+              </div>
+            </div>
+          </mat-step>
+
+        </mat-horizontal-stepper>
+      </div>
+
+    </div>
+  </div>
+</div>
