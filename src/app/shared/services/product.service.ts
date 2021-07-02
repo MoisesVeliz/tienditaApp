@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Product } from '../shared/models/product';
+import { Product } from '../models/product';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
@@ -30,7 +30,7 @@ export class ProductService {
     // api/monetaryRate/[idUser]
     return this.http.put<{ rate: number }>(`${this.dbUrl}/monetaryRate/${this.lStorage.getUser(this.lStorage.SIN_IN_DATA).userId}.json`, { rate: rate });
   }
-  // // ******************End*************************
+
   getProducts(): Observable<Product[]> {
     // api/productList/[idUser]
     // return this.http.get<any[]>(`${this.dbUrl}/productList/${this.lStorage.getUser().userId}.json?auth=${this.lStorage.getUser().token}`).pipe(

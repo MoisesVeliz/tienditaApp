@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
-import { ProductService } from 'src/app/services/product.service';
+import { ProductService } from 'src/app/shared/services/product.service';
 import { Product } from 'src/app/shared/models/product';
-import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-home',

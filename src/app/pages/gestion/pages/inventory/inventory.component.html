@@ -1,0 +1,72 @@
+<div class="p-p-5">
+  <form action="">
+    <h2 class="mb-4">Agregas productos al inventario</h2>
+    <div class="p-formgrid p-grid">
+      <div class="d-inline ">
+        <h2>1.</h2>
+      </div>
+      <div class="p-field p-col ">
+        <div class="p-inputgroup ">
+          <span class="p-float-label">
+            <input id="location" type="text" pInputText>
+            <label for="location">Nombre producto</label>
+          </span>
+        </div>
+      </div>
+      <div class="p-field p-col">
+        <div class="p-inputgroup ">
+          <span class="p-float-label">
+            <input id="location" type="text" pInputText>
+            <label for="location">Cantidad</label>
+          </span>
+        </div>
+      </div>
+      <div class="p-field p-col">
+        <div class="p-inputgroup ">
+          <span class="p-float-label">
+            <!-- <input id="location" type="text" pInputText>-->
+
+            <p-cascadeSelect [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedCity1" [options]="countries"
+              optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['unidades']"
+              [style]="{'minWidth': '14rem'}">
+            </p-cascadeSelect>
+            <label for="location">Unidad de medida</label>
+          </span>
+        </div>
+      </div>
+      <div class="p-field p-col">
+        <div class="p-inputgroup ">
+          <span class="p-float-label">
+            <input id="location" type="date" pInputText>
+            <label for="location">Fecha ingreso</label>
+          </span>
+        </div>
+      </div>
+      <div class="p-field p-col">
+        <div class="p-inputgroup ">
+          <span class="p-float-label">
+            <input id="location" type="text" pInputText>
+            <label for="location">Costo por Unidad</label>
+          </span>
+        </div>
+      </div>
+      <div class="p-field p-col">
+        <div class="p-inputgroup ">
+          <span class="p-float-label">
+            <input id="location" type="text" pInputText>
+            <label for="location">Costo Total</label>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <button pButton icon="pi pi-plus" class="p-button-raised p-button-rounded p-mr-4"></button>
+    </div>
+
+    <div class="p-mt-5">
+      <button pButton class="p-button-raised p-mr-4">Guardar lote</button>
+      <button pButton class="p-button-text p-button-raised">Cancelar</button>
+    </div>
+  </form>
+</div>

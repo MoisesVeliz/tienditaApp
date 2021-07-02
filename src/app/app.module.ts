@@ -9,12 +9,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';
-import { RegistroComponent } from './auth/registro/registro.component';
-import { HomeComponent } from './pages/home/home.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { environment } from 'src/environments/environment';
-import { PagesComponent } from './pages/pages.component';
 
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
@@ -44,27 +39,31 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { MatStepperModule } from '@angular/material/stepper';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { SidebarModule } from 'ng-sidebar';
-import { WelcomeComponent } from './pages/welcome/welcome.component';
-import { InventoryComponent } from './pages/inventory/inventory.component';
-import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
-import { PagenofoundComponent } from './pagenofound/pagenofound.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import { LoginComponent } from './pages/auth/pages/login/login.component';
+import { RegistroComponent } from './pages/auth/pages/registro/registro.component';
+import { HomeComponent } from './pages/gestion/pages/home/home.component';
+import { PagenofoundComponent } from './pages/pagenofound/pagenofound.component';
+import { SidebarComponent } from './pages/gestion/components/sidebar/sidebar.component';
+import { InventoryComponent } from './pages/gestion/pages/inventory/inventory.component';
+import { ShoppingCartComponent } from './pages/gestion/pages/shopping-cart/shopping-cart.component';
+import { GestionComponent } from './pages/gestion/gestion.component';
+import { WelcomeComponent } from './pages/gestion/pages/welcome/welcome.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegistroComponent,
     HomeComponent,
-    DashboardComponent,
     PagenofoundComponent,
-    PagesComponent,
     SidebarComponent,
     WelcomeComponent,
     InventoryComponent,
     ShoppingCartComponent,
+    GestionComponent,
   ],
   imports: [
     BrowserModule,
@@ -104,7 +103,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     CheckboxModule,
     ConfirmPopupModule,
     MatStepperModule,
-    SelectButtonModule
+    SelectButtonModule,
+    CascadeSelectModule,
   ],
   providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]

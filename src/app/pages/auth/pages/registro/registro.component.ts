@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { User } from '../model/user.model';
-import { AuthService } from '../services/auth.service';
+import { User } from '../../model/user.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-registro',

@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-  selector: 'app-pages',
-  templateUrl: './pages.component.html',
-  styleUrls: ['./pages.component.css']
+  selector: 'app-gestion',
+  templateUrl: './gestion.component.html',
+  styleUrls: ['./gestion.component.css']
 })
-export class PagesComponent implements OnInit {
+export class GestionComponent implements OnInit {
 
   items: MenuItem[] = [];
   items3: any[] = [];
@@ -147,5 +147,4 @@ export class PagesComponent implements OnInit {
   _toggleSidebar() {
     this._opened = !this._opened;
   }
-
 }

@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './auth/login/login.component';
-import { RegistroComponent } from './auth/registro/registro.component';
-import { HomeComponent } from './pages/home/home.component';
-import { PagenofoundComponent } from './pagenofound/pagenofound.component';
-import { PagesComponent } from './pages/pages.component';
-import { WelcomeComponent } from './pages/welcome/welcome.component';
-import { InventoryComponent } from './pages/inventory/inventory.component';
-import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
+import { LoginComponent } from './pages/auth/pages/login/login.component';
+import { RegistroComponent } from './pages/auth/pages/registro/registro.component';
+import { GestionComponent } from './pages/gestion/gestion.component';
+import { HomeComponent } from './pages/gestion/pages/home/home.component';
+import { InventoryComponent } from './pages/gestion/pages/inventory/inventory.component';
+import { ShoppingCartComponent } from './pages/gestion/pages/shopping-cart/shopping-cart.component';
+import { WelcomeComponent } from './pages/gestion/pages/welcome/welcome.component';
+import { PagenofoundComponent } from './pages/pagenofound/pagenofound.component';
+
 
 const routes: Routes = [
   {
-    path: '', component: PagesComponent, children: [
+    path: '', component: GestionComponent, children: [
       { path: 'home', component: HomeComponent },
       { path: 'inventory', component: InventoryComponent },
       { path: 'shopping-cart', component: ShoppingCartComponent },

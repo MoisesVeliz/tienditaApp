@@ -4,7 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import firebase from 'firebase/app';
 import { Observable } from 'rxjs';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { User } from 'src/app/shared/models/user.model';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
